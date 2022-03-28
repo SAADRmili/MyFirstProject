@@ -14,6 +14,11 @@ namespace MyFirstProject.API.Services
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext)) ;
         }
 
+        public void AddProdcut(Product product)
+        {
+            throw new NotImplementedException();
+        }
+
         public async Task<Product> GetProduct(Guid productId)
         {
             var query = $"SELECT * FROM products WHERE id = @Id";

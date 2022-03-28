@@ -25,6 +25,7 @@ builder.Services.AddLogging(c=> c.AddFluentMigratorConsole())
 
 
 builder.Services.AddTransient<IProductService, ProductService>();
+builder.Services.AddTransient<IBrandService, BrandService>();
 
 
 builder.Services.AddControllers();

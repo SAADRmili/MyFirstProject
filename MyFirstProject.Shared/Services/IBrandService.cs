@@ -7,11 +7,12 @@ using System.Threading.Tasks;
 
 namespace MyFirstProject.Shared.Services
 {
-    public interface IProductService
+    public  interface IBrandService
     {
-        public Task<IEnumerable<Product>> GetProducts();
-        public Task<Product> GetProduct(Guid productId);
+        public Task<IEnumerable<Brand>> GetBrands();
 
-        public void  AddProdcut(Product product);
+        public Task<Brand> GetBrand(Guid id);
+
+        public Task<Brand> AddBrand(Brand brand);
     }
 }
