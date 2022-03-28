@@ -4,6 +4,8 @@ using MyFirstProject.API.Extensions;
 using MyFirstProject.API.Migrations;
 using System.Reflection;
 using Microsoft.Extensions.Configuration;
+using MyFirstProject.Shared.Services;
+using MyFirstProject.API.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +20,12 @@ builder.Services.AddLogging(c=> c.AddFluentMigratorConsole())
     .ConfigureRunner(c => c.AddPostgres()
             .WithGlobalConnectionString(builder.Configuration.GetConnectionString("dbConnection"))
             .ScanIn(Assembly.GetExecutingAssembly()).For.Migrations());;
+
+
+
+
+builder.Services.AddTransient<IProductService, ProductService>();
+
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle

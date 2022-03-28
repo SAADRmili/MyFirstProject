@@ -7,24 +7,24 @@ namespace MyFirstProject.API.Migrations
     {
         public override void Down()
         {
-            Delete.Table("Products");
-            Delete.Table("Brands");
+            Delete.Table("products");
+            Delete.Table("brands");
         }
 
         public override void Up()
         {
-            Create.Table("Brands")
-            .WithColumn("Id").AsGuid().NotNullable().PrimaryKey()
-            .WithColumn("Name").AsString(50).NotNullable();
+            Create.Table("brands")
+            .WithColumn("id").AsGuid().NotNullable().PrimaryKey()
+            .WithColumn("name").AsString(50).NotNullable();
 
 
 
-            Create.Table("Products")
-                .WithColumn("Id").AsGuid().NotNullable().PrimaryKey()
-                .WithColumn("Name").AsString(50).NotNullable()
-                .WithColumn("Price").AsInt32().NotNullable()
-                .WithColumn("PromoPrice").AsString(50).NotNullable()
-                .WithColumn("BrandId").AsGuid().NotNullable().ForeignKey("Brands", "Id");
+            Create.Table("products")
+                .WithColumn("id").AsGuid().NotNullable().PrimaryKey()
+                .WithColumn("name").AsString(50).NotNullable()
+                .WithColumn("price").AsInt32().NotNullable()
+                .WithColumn("promoPrice").AsString(50).NotNullable()
+                .WithColumn("brandId").AsGuid().NotNullable().ForeignKey("brands", "id");
         }
     }
 }
