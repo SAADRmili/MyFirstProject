@@ -45,6 +45,16 @@ namespace MyFirstProject.API.Services
             }
       }
 
+        public async Task<IEnumerable<Brand>> GetAllBrands()
+        {
+            var query = "Select * from brands";
+            using(var connection= _dbContext.CreateConnection())
+            {
+                var brands = await connection.QueryAsync<Brand>(query);
+                return brands;
+            }
+        }
+
         public async Task<Brand> GetBrand(Guid id)
         {
             var query = $"SELECT * FROM brands WHERE id = @Id";
@@ -59,11 +69,24 @@ namespace MyFirstProject.API.Services
 
         public async Task<IEnumerable<Brand>> GetBrands()
         {
-            var query = "SELECT * FROM brands";
+            var query = "SELECT * FROM brands b join products p on b.id = p.brandid";
             using (var connection = _dbContext.CreateConnection())
             {
-                var brands = await connection.QueryAsync<Brand>(query);
-                return brands.ToList();
+                var brandDis = new Dictionary<Guid, Brand>();
+                var brands = await connection.QueryAsync<Brand, Product, Brand>(
+                    query, (brand, Product) =>
+                    {
+                        if (!brandDis.TryGetValue(brand.Id, out var currentBrand))
+                        {
+                            currentBrand = brand;
+                            brandDis.Add(currentBrand.Id, currentBrand);
+                        }
+                        currentBrand.Products.Add(Product);
+                        return currentBrand;
+                    }
+                );
+                return brands.Distinct().ToList();
+
             }
         }
 

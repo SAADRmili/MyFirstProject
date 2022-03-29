@@ -9,6 +9,7 @@ namespace MyFirstProject.Shared.Services
 {
     public  interface IBrandService
     {
+        public Task<IEnumerable<Brand>> GetAllBrands();
         public Task<IEnumerable<Brand>> GetBrands();
 
         public Task<Brand> GetBrand(Guid id);

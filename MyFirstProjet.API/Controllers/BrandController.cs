@@ -1,7 +1,10 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using MyFirstProject.API.DTO;
 using MyFirstProject.Shared.Entities;
 using MyFirstProject.Shared.Services;
+using System.Collections.Generic;
 
 namespace MyFirstProject.API.Controllers
 {
@@ -10,14 +13,32 @@ namespace MyFirstProject.API.Controllers
     public class BrandController : ControllerBase
     {
         private readonly IBrandService _brandService;
-
-        public BrandController(IBrandService brandService)
+        private readonly IMapper _mapper;
+        public BrandController(IBrandService brandService, IMapper mapper)
         {
             _brandService = brandService ?? throw new ArgumentNullException(nameof(brandService));
+            _mapper = mapper ?? throw new ArgumentNullException(nameof(mapper));    
         }
 
-        [HttpGet]
-        public async Task<IActionResult> GetBrands()
+
+        [HttpGet("/GetAllBrands",Name ="GetAllBrands")]
+        public async Task<IActionResult> AllBrands()
+        {
+            try
+            {
+                var brands = await _brandService.GetAllBrands();
+                var data = _mapper.Map<IEnumerable<BrandDetails>>(brands);
+                return Ok(data);
+            }
+            catch (Exception ex)
+            {
+
+                return BadRequest(ex);
+            }
+        }
+
+        [HttpGet(Name ="GetBrandsWithOurProducts")]
+        public async Task<IActionResult> GetBrandsWithProduct()
         {
             try
             {

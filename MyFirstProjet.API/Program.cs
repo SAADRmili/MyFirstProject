@@ -10,6 +10,8 @@ using MyFirstProject.API.Services;
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
+builder.Services.AddAutoMapper(typeof(Program));
+
 
 builder.Services.AddSingleton<dbContext>();
 builder.Services.AddSingleton<Database>();
@@ -29,6 +31,9 @@ builder.Services.AddTransient<IBrandService, BrandService>();
 
 
 builder.Services.AddControllers();
+
+
+
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
