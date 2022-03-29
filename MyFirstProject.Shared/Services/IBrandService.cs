@@ -14,5 +14,9 @@ namespace MyFirstProject.Shared.Services
         public Task<Brand> GetBrand(Guid id);
 
         public Task<Brand> AddBrand(Brand brand);
+
+        public Task<Brand> UpdateBrand(Guid id, Brand brand);
+
+        public Task DeleteBrand(Guid id);
     }
 }

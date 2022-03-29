@@ -32,6 +32,19 @@ namespace MyFirstProject.API.Services
             
         }
 
+        public async Task DeleteBrand(Guid id)
+
+        {
+            var qurey = "Delete from brands WHERE   id = @Id";
+            var parms = new DynamicParameters();
+            parms.Add("Id", id, System.Data.DbType.Guid);
+
+            using(var connection= _dbContext.CreateConnection())
+            {
+              await  connection.ExecuteAsync(qurey, parms); 
+            }
+      }
+
         public async Task<Brand> GetBrand(Guid id)
         {
             var query = $"SELECT * FROM brands WHERE id = @Id";
@@ -51,6 +64,22 @@ namespace MyFirstProject.API.Services
             {
                 var brands = await connection.QueryAsync<Brand>(query);
                 return brands.ToList();
+            }
+        }
+
+        public async Task<Brand> UpdateBrand(Guid id,Brand brand)
+        {
+            var query = "Update brands set name =@Name where id =@Id ";
+
+
+            var parms = new DynamicParameters();
+            parms.Add("Id", id, System.Data.DbType.Guid);
+            parms.Add("Name", brand.Name, System.Data.DbType.String);
+
+            using(var connection = _dbContext.CreateConnection())
+            {
+                await connection.ExecuteAsync(query, parms);
+                return brand;
             }
         }
     }
