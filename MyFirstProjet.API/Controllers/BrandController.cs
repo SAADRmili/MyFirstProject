@@ -37,7 +37,7 @@ namespace MyFirstProject.API.Controllers
             }
         }
 
-        [HttpGet(Name ="GetBrandsWithOurProducts")]
+        [HttpGet("/GetBrandsWithOurProducts",Name ="GetBrandsWithOurProducts")]
         public async Task<IActionResult> GetBrandsWithProduct()
         {
             try

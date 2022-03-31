@@ -12,6 +12,12 @@ namespace MyFirstProject.Shared.Services
         public Task<IEnumerable<Product>> GetProducts();
         public Task<Product> GetProduct(Guid productId);
 
-        public void  AddProdcut(Product product);
+        public Task  AddProdcut(Product product);
+        
+        public Task UpdateProduct(Guid productId,Product product);
+
+        public Task AddPromoToProduct(Guid id,double promo);
+        public Task DeleteProdcut(Guid productId);  
+
     }
 }
