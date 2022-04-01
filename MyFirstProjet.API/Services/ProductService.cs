@@ -10,6 +10,10 @@ namespace MyFirstProject.API.Services
     {
         private readonly dbContext _dbContext;
 
+        public ProductService()
+        {
+        }
+
         public ProductService(dbContext dbContext)
         {
             _dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
